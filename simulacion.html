@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulación de Phishing</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:900px;
+    max-width:90%;
+}
+
+.alert-box{
+    background:#991b1b;
+    border:2px solid #ef4444;
+    border-radius:12px;
+    padding:30px;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.alert-box h1{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.alert-box p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#38bdf8;
+}
+
+.info{
+    margin-bottom:12px;
+}
+
+.label{
+    color:#94a3b8;
+    display:block;
+    margin-bottom:4px;
+}
+
+.value{
+    font-size:18px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+}
+
+.button{
+    background:#0ea5e9;
+    color:white;
+    border:none;
+    padding:15px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.button:hover{
+    background:#0284c7;
+}
+
+.success{
+    color:#22c55e;
+}
+
+.warning{
+    color:#fbbf24;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="alert-box">
+        <h1>🚨 SIMULACIÓN DE PHISHING 🚨</h1>
+
+        <p>
+            Acabas de introducir información en una página que parecía legítima.
+            <br><br>
+            En un ataque real, estos datos podrían haber sido enviados a un atacante.
+        </p>
+    </div>
+
+    <div class="card">
+
+        <h2>📥 Información capturada</h2>
+
+        <div class="info">
+            <span class="label">Usuario</span>
+            <span class="value" id="user"></span>
+        </div>
+
+        <div class="info">
+            <span class="label">Contraseña</span>
+            <span class="value" id="password"></span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>💻 Información adicional obtenida automáticamente</h2>
+
+        <div class="info">
+            <span class="label">Navegador</span>
+            <span class="value" id="browser"></span>
+        </div>
+
+        <div class="info">
+            <span class="label">Idioma</span>
+            <span class="value" id="language"></span>
+        </div>
+
+        <div class="info">
+            <span class="label">Resolución</span>
+            <span class="value" id="resolution"></span>
+        </div>
+
+        <div class="info">
+            <span class="label">Zona Horaria</span>
+            <span class="value" id="timezone"></span>
+        </div>
+
+        <div class="info">
+            <span class="label">Fecha y Hora</span>
+            <span class="value" id="datetime"></span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🎯 ¿Qué aprendimos?</h2>
+
+        <p class="warning">
+            La página parecía legítima.
+        </p>
+
+        <br>
+
+        <p class="warning">
+            No verificaste el dominio.
+        </p>
+
+        <br>
+
+        <p class="warning">
+            Introdujiste tus credenciales por confianza.
+        </p>
+
+        <br>
+
+        <p class="success">
+            Afortunadamente esto era una simulación educativa.
+        </p>
+
+    </div>
+
+    <div class="footer">
+        <button class="button" onclick="restartDemo()">
+            Reiniciar demostración
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+// Datos recibidos desde la pantalla anterior
+
+const user = sessionStorage.getItem('demo_user') || 'No disponible';
+
+const password = sessionStorage.getItem('demo_password') || '';
+
+function maskPassword(password){
+
+    if(password.length <= 2){
+        return '********';
+    }
+
+    return password[0]
+        + '*'.repeat(password.length - 2)
+        + password[password.length - 1];
+}
+
+function restartDemo(){
+
+    sessionStorage.removeItem('demo_user');
+    sessionStorage.removeItem('demo_password');
+
+    window.location.href = "index.html";
+
+}
+
+document.getElementById('user').innerText = user;
+
+document.getElementById('password').innerText =
+    maskPassword(password);
+
+// Datos del navegador
+
+document.getElementById('browser').innerText =
+    navigator.userAgent;
+
+document.getElementById('language').innerText =
+    navigator.language;
+
+document.getElementById('resolution').innerText =
+    screen.width + ' x ' + screen.height;
+
+document.getElementById('timezone').innerText =
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+document.getElementById('datetime').innerText =
+    new Date().toLocaleString();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webmail Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <img src="assets/logo_plesk.svg" class="logo" alt="Logo">
+
+    <form id="loginForm">
+
+        <div class="input-group">
+            <div class="icon">👤</div>
+            <input
+                type="text"
+                id="username"
+                placeholder="Nombre de usuario"
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="input-group">
+            <div class="icon">🔒</div>
+            <input
+                type="password"
+                id="password"
+                placeholder="Contraseña"
+            >
+        </div>
+
+        <button type="submit">
+            INICIAR SESIÓN
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Roundcube Webmail
+    </div>
+
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e){
+
+    e.preventDefault();
+
+    const user = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Guardar temporalmente para la simulación
+    sessionStorage.setItem('demo_user', user);
+    sessionStorage.setItem('demo_password', password);
+
+    // Pantalla de carga
+    document.body.innerHTML = `
+        <div class="loading-screen">
+            <div class="spinner"></div>
+            <h2>Validando credenciales...</h2>
+            <p>Por favor espere</p>
+        </div>
+    `;
+
+    // Simulación de validación
+    setTimeout(() => {
+        window.location.href = "simulacion.html";
+    }, 2500);
+
+});
+</script>
+
+</body>
+</html>
